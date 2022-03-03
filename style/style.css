@@ -1,25 +1,123 @@
 @font-face {
-    font-family: 'vazir';
-    src: url('../font/Vazir.eot');
-    src: url('../font/Vazir.ttf') format('truetype'), 
-    url('../font/Vazir.woff2') format('woff2'), 
-    url('../font/Vazir.woff') format('woff');
-   
-
+  font-family: "vazir";
+  src: url("../font/Vazir.eot");
+  src: url("../font/Vazir.ttf") format("truetype"),
+    url("../font/Vazir.woff2") format("woff2"),
+    url("../font/Vazir.woff") format("woff");
 }
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body{
-direction: rtl;
-font-family: 'vazir',sans-serif;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-height: 100vh;
-
-
+body {
+  direction: rtl;
+  font-family: "vazir", sans-serif;
+  background: #3f3f46;
+  height: 100vh;
+}
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  background: #111827;
+  box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px,
+    rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px,
+    rgba(240, 46, 170, 0.05) 0px 25px;
+  padding: 0 20px;
+  color: #fff;
+}
+.cart__count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #22c55e;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  color: #fff;
+  position: relative;
+  top: 25%;
+  right: 0;
+  cursor: pointer;
+}
+.cart__count svg {
+  font-size: 22px;
+  margin-left: 10px;
+}
+.cart {
+  width: 100%;
+  position: relative;
+}
+.cart__items {
+  position: absolute;
+  display: none;
+  right: 20px;
+  top: 30px;
+  background: #fff;
+  width: 700px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px;
+}
+.cart__items.active {
+  display: block;
+}
+.cart__items::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.cart__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px dashed #64748b;
+}
+.cart__item > * {
+  margin: 20px;
+}
+.cart__item > img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.btn__small {
+  padding: 5px 10px;
+  background: #22c55e;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 20px;
+}
+.btn__remove {
+  background: #ef4444;
+}
+.check__out {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 10px;
+}
+.check__out > * {
+  margin: 10px;
+  font-size: 20px;
+}
+.check__out .btn {
+  border: none;
+  font-family: "vazir";
+  padding: 7px 15px;
 }
