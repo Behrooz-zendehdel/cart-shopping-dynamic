@@ -4,8 +4,12 @@ const addToCartBtn = document.querySelectorAll('.btn_add_to_cart')
 const totalCount = document.querySelector('.total__counter');
 const totalCost = document.querySelector('.total__cost');
 
-let cartItems = []
 
+localStorage.setItem("cart__item", "my cart")
+
+
+let cartItems = (JSON.parse(localStorage.getItem("cart___items")) || [])
+document.addEventListener('DOMContentLoaded', loadData)
 
 countCounter.addEventListener('click', function () {
     cartDOM.classList.toggle('active')
@@ -44,8 +48,15 @@ addToCartBtn.forEach(btn => {
 
         cartItems.push(product)
         calculateTotal();
+        saveToLocalStorage();
     })
 })
+
+function saveToLocalStorage() {
+
+    localStorage.setItem("cart___items", JSON.stringify(cartItems))
+}
+
 
 function addItemToTheDom(product) {
     cartDOM.insertAdjacentHTML("afterbegin", `
@@ -82,7 +93,8 @@ function incrementItem(p, product) {
         cartItems.forEach(cartItem => {
             if (cartItem.id === product.id) {
                 p.querySelector('.product__quantity').innerText = ++cartItem.quantity;
-                calculateTotal()
+                calculateTotal();
+                saveToLocalStorage();
             }
         })
     })
@@ -102,7 +114,8 @@ function decrementItem(p, product) {
 
 
 
-                calculateTotal()
+                calculateTotal();
+                saveToLocalStorage();
             }
         })
     })
@@ -119,8 +132,29 @@ function removeItem(p, product) {
 
 
 
-                calculateTotal()
+                calculateTotal();
+                saveToLocalStorage();
             }
         })
     })
+}
+function loadData() {
+    if (cartItems.length > 0) {
+        cartItems.forEach(product => {
+            addItemToTheDom(product)
+
+            const cartDOMItems = document.querySelectorAll('.cart__item')
+            cartDOMItems.forEach(p => {
+                if (p.querySelector('#product__id').value === product.id) {
+                    incrementItem(p, product);
+                    decrementItem(p, product);
+                    removeItem(p, product);
+                }
+            })
+
+        })
+        calculateTotal();
+        saveToLocalStorage();
+
+    }
 }
