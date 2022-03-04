@@ -33,10 +33,11 @@ addToCartBtn.forEach(btn => {
         }
 
         const cartDOMItems = document.querySelectorAll('.cart__item')
-        cartDOMItems.forEach(inItem => {
-            if (inItem.querySelector('#product__id').value === product.id) {
-                inCrementItem(inItem, productItem);
-                // decrementItem(inItem, productItem);
+        cartDOMItems.forEach(p => {
+            if (p.querySelector('#product__id').value === product.id) {
+                incrementItem(p, product);
+                decrementItem(p, product);
+                removeItem(p, product);
             }
         })
 
@@ -49,9 +50,9 @@ addToCartBtn.forEach(btn => {
 function addItemToTheDom(product) {
     cartDOM.insertAdjacentHTML("afterbegin", `
         <div class="cart__item">
-        <input type="hidden" id="product__id" value=${product.id}/>
+        <input type="hidden" id="product__id" value="${product.id}"/>
         <img
-        src=${product.image}
+        src="${product.image}"
         alt=""
         id="product__"
         />
@@ -60,7 +61,7 @@ function addItemToTheDom(product) {
         <h4 class="product__quantity">${product.quantity}</h4>
         <a  class="btn__small" action="increase">&plus;</a>
         <h4 class="product__price">${product.price}</h4>
-        <a class="btn__small btn__remove">&times;</a>
+        <a class="btn__small btn__remove" action="remove">&times;</a>
         </div>
         `)
 }
@@ -76,23 +77,50 @@ function calculateTotal() {
 }
 
 
-function inCrementItem(inItem, productItem) {
-    inItem.querySelector("[action='increase']").addEventListener('click', function () {
+function incrementItem(p, product) {
+    p.querySelector("[action='increase']").addEventListener('click', function () {
         cartItems.forEach(cartItem => {
             if (cartItem.id === product.id) {
-                inItem.querySelector('.product__quantity').innerText = ++cartItem.quantity;
+                p.querySelector('.product__quantity').innerText = ++cartItem.quantity;
                 calculateTotal()
             }
-        }) 
+        })
     })
 }
-// function decrementItem(inItem, productItem) {
-//     inItem.querySelector("[action='decrease']").addEventListener('click', function () {
-//         cartItems.forEach(cartItem => {
-//             if (cartItem.id === product.id) {
-//                 inItem.querySelector('.product__quantity').innerText = --cartItem.quantity;
-//                 calculateTotal()
-//             }
-//         })
-//     })
-// }
+function decrementItem(p, product) {
+    p.querySelector("[action='decrease']").addEventListener('click', function () {
+        cartItems.forEach(cartItem => {
+            if (cartItem.id === product.id) {
+
+                if (cartItem.quantity > 1) {
+                    p.querySelector('.product__quantity').innerText = --cartItem.quantity;
+
+                } else {
+                    cartItems = cartItems.filter(newElement => newElement.id !== product.id)
+                    p.remove();
+                }
+
+
+
+                calculateTotal()
+            }
+        })
+    })
+}
+function removeItem(p, product) {
+    p.querySelector("[action='remove']").addEventListener('click', function () {
+        cartItems.forEach(cartItem => {
+            if (cartItem.id === product.id) {
+
+
+                cartItems = cartItems.filter(newElement => newElement.id !== product.id)
+                p.remove();
+
+
+
+
+                calculateTotal()
+            }
+        })
+    })
+}
